@@ -9,7 +9,7 @@ def read_file(filename):
 
 def convert(lines):
 	new = []
-	person = '123'#預設值
+	person = None#預設值
 	for line in lines:
 		if line == 'Allen':
 			person = 'Allen'
@@ -17,13 +17,20 @@ def convert(lines):
 		elif line == 'Tom':
 			person = 'Tom'
 			continue
+		if person:
+			new.append(person + ': ' + line)
+	return new
 
-		new.append(person + ': ' + line)
-	print(new)
+def write_file(filename, lines):
+	with open(filename, 'w') as f:
+		for line in lines:
+			f.write(line + '\n')
 
 def main():
 	lines = read_file('input.txt')#進到read_file
-	convert(lines)
+	lines = convert(lines)#lines丟進去後回傳後又覆蓋原先的lines
+	write_file('outputFile.txt', lines)
+
 	
 
 main()#程式的進入點
